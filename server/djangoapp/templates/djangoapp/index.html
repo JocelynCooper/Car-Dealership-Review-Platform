@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
@@ -9,17 +10,45 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script
+        src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
 
-    <body>
-    <!-- Remove this line the first time you edit this file -->
-     This is the index page of your Django app!
-    <!--Add a nav bar here -->
+<body>
+    <!--Navigation Bar -->
+    <nav class="navbar navbar-light" style="background-color: wheat">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
+            </div>
+            <div id="nav-list" class="navbar-header navbar-right">
+                {% if user.is_authenticated %}
+                <div>
+                    <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                </div>
+                {% else %}
+                <div>
+                    <a class="navbar-brand" href="{% url 'djangoapp:login' %}">Login</a>
+                    <a class="navbar-brand" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                </div>
+                {% endif %}
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle" style="background-color: wheat"
+                        data-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{% url 'djangoapp:about' %}"> About Us</a>
+                        <a class="dropdown-item" href="{% url 'djangoapp:contact_us' %}"> Contact Us</a>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </nav>
     <!--Add a dealer table here -->
 
-    </body>
+</body>
 
 </html>
