@@ -22,22 +22,28 @@ def get_request(url, **kwargs):
 
 
 def post_request(url, json_payload, **kwargs):
-    print(kwargs)
+    print(json_payload)
     print("POST to {} ".format(url))
     try:
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                params=kwargs, json=json_payload)
+        response = requests.post(url,
+                                 params=kwargs, json=json_payload)
     except:
         print("Network exception occurred")
+    
     status_code = response.status_code
     print("With status {} ".format(status_code))
     json_data = json.loads(response.text)
+    print(json_data)
     return json_data
 
 
 def get_dealers_from_cf(url, **kwargs):
+    print(kwargs)
     if "state" in kwargs:
-        json_result = get_request(url, state=kwargs.get("state"))
+        json_result = get_request(url, id=kwargs.get("state"))
+    elif kwargs.get("dealer_id"):
+        print(kwargs.get("dealer_id"))
+        json_result = get_request(url, id=int(kwargs.get("dealer_id")))
     else:
         json_result = get_request(url)
 
@@ -83,4 +89,5 @@ def analyze_review_sentiments(text):
     response = nlp_server.analyze(text=text, features=Features(
         sentiment=SentimentOptions(targets=[text]))).get_result()
     sentiment = response['sentiment']['document']['label']
+    print(sentiment)
     return sentiment

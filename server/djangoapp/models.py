@@ -14,12 +14,13 @@ class CarMake(models.Model):
     description = models.CharField(max_length=1000)
     establish_date = models.DateField(null=True)
 
-    def __str__(self):
-        return print(self)
+    # def __str__(self):
+    #     return print(str(self.name))
 
 
 class CarModel(models.Model):
-    carMake = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    carMakeId = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    carMakeName = models.CharField(null=False, max_length=30, default='New Car Make')
     dealer_id = models.IntegerField(null=False, default=-1)
     name = models.CharField(null=False, max_length=30, default='New Car Model')
 
@@ -37,10 +38,10 @@ class CarModel(models.Model):
         choices=TYPE_CHOICES,
         default=SUV
     )
-    year = models.DateField()
+    year = models.IntegerField()
 
-    def __str__(self):
-        return print(self)
+    # def __str__(self):
+    #     return print(str(self.carMake))
 
 
 class CarDealer:
