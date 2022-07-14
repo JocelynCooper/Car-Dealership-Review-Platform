@@ -80,8 +80,8 @@ def get_dealer_by_id_from_cf(url, dealerId):
 
 
 def analyze_review_sentiments(text):
-    url = ""
-    api_key = ""
+    url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/40d449fb-755b-4782-81d0-2653fbcf6990"
+    api_key = "leqiM6mxq3g54NhXNkLi69l6PxshqHmxoGMTvoPShCWV"
     authenticator = IAMAuthenticator(api_key)
     nlp_server = NaturalLanguageUnderstandingV1(
         version='2021-08-01', authenticator=authenticator)
@@ -89,5 +89,4 @@ def analyze_review_sentiments(text):
     response = nlp_server.analyze(text=text, features=Features(
         sentiment=SentimentOptions(targets=[text]))).get_result()
     sentiment = response['sentiment']['document']['label']
-    print(sentiment)
     return sentiment

@@ -44,7 +44,7 @@ def login_request(request):
 
 def logout_request(request):
     logout(request)
-    return redirect('django:index')
+    return redirect('djangoapp:index')
 
 
 def registration_request(request):
@@ -78,7 +78,6 @@ def get_dealerships(request):
         url = "https://2e991945.eu-gb.apigw.appdomain.cloud/api/dealership"
         dealerships = get_dealers_from_cf(url)
         context["dealerships"] = dealerships
-        # dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         return render(request, 'djangoapp/index.html', context)
 
 
@@ -92,9 +91,6 @@ def get_dealer_details(request, dealer_id):
         dealer_fullname = get_dealers_from_cf(dealer_url, dealer_id=dealer_id)[0].full_name
         context["dealer_fullname"] =  dealer_fullname
         context["dealer_id"] =  dealer_id
-        
-        # dealer_reviews = [[dealer.review, dealer.sentiment]
-                        #   for dealer in reviews]
         return render(request, 'djangoapp/dealer_details.html', context)
 
 
@@ -129,17 +125,15 @@ def add_review(request, dealer_id):
 
             json_payload = {}
             json_payload["review"] = review
-            json_payload = json.dumps(json_payload)
 
             url = "https://2e991945.eu-gb.apigw.appdomain.cloud/api/review"
-            print(json_payload)
             post_request(url, json_payload)
         elif request.method == "GET":
-            cars = CarModel.objects.filter(id=dealer_id)
+            cars = CarModel.objects.filter(dealer_id=dealer_id)
             context["cars"] = cars
             return render(request, 'djangoapp/add_review.html', context)
     if request.method == "GET":
-            cars = CarModel.objects.filter(id=dealer_id)
+            cars = CarModel.objects.filter(dealer_id=dealer_id)
             context["cars"] = cars
             return render(request, 'djangoapp/add_review.html', context)
     return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
