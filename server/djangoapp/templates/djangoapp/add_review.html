@@ -14,6 +14,9 @@
 </head>
 
 <body>
+    <!--Navigation Bar -->
+    {% include "djangoapp/navigation_bar.html" %}
+    
     <form id="reviewform" action="{% url 'djangoapp:add_review' dealer_id %}" method="post">
         {% csrf_token %} 
         <h1>Add a review about {{dealer_fullname}}</h1>

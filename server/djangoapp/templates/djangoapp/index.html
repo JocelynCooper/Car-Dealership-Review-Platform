@@ -17,39 +17,10 @@
 
 <body>
     <!--Navigation Bar -->
-    <nav class="navbar navbar-light" style="background-color: wheat">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
-            </div>
-            <div id="nav-list" class="navbar-header navbar-right">
-                {% if user.is_authenticated %}
-                <div>
-                    <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
-                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
-                </div>
-                {% else %}
-                <div>
-                    <a class="navbar-brand" href="{% url 'djangoapp:login' %}">Login</a>
-                    <a class="navbar-brand" href="{% url 'djangoapp:registration' %}">Sign Up</a>
-                </div>
-                {% endif %}
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle" style="background-color: wheat"
-                        data-toggle="dropdown" aria-expanded="false">
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{% url 'djangoapp:about' %}"> About Us</a>
-                        <a class="dropdown-item" href="{% url 'djangoapp:contact_us' %}"> Contact Us</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </nav>
+    {% include "djangoapp/navigation_bar.html" %}
 
     <!--Dealer Table-->
-    <table class="table" id="table" data-filter-control="true">
+    <!-- <table class="table" id="table" data-filter-control="true" style="margin:20px" width="80%">
         <thead>
             <tr>
                 <th data-field="id">ID</th>
@@ -72,7 +43,37 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table> -->
+
+    <div class="container" ng-view="">
+        <div class="table-responsive fixed-table-body">
+            <table class="table" id="table" data-filter-control="true" style="margin-top:40px">
+                <thead>
+                    <tr>
+                        <th data-field="id">ID</th>
+                        <th data-field="dealer_name">Dealer Name</th>
+                        <th data-field="city">City</th>
+                        <th data-field="address">Address</th>
+                        <th data-field="zip">Zip</th>
+                        <th data-field="state" data-filter-control="select">State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dealer in dealerships %}
+                    <tr>
+                        <td>{{dealer.id}}</td>
+                        <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+                        <td>{{dealer.city}}</td>
+                        <td>{{dealer.address}}</td>
+                        <td>{{dealer.zip}}</td>
+                        <td>{{dealer.st}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
 </body>
 
 <script>
