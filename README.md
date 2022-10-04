@@ -23,8 +23,17 @@ In this project, a car dealership review platform is developed. The platform all
 4. Review sentiment analysis which classifies the sentiment of a review as positive, negative or neutral.
 5. Admin user account of the application that support easy modification of data stored in the databases.
 
-### Demo Video
-Coming soon
+### Application Link (deployed on IBM Cloud Foundry)
+https://jc-888.eu-gb.mybluemix.net/djangoapp/
+
+### User Interface
+| Dealership List                             | Dealership Review                              | Add Review
+|------------------------------------------------|-----------------------------------------|-----------------------------------------|
+| ![image info](images/index.png)<br/> | ![image info](images/dealership_review.png) | ![image info](images/add_review.png) |
+
+| User Registration Page                    | User Login Page                     |
+|-------------------------------------------|-------------------------------------|
+| ![image info](images/sign_up.png) | ![image info](images/login.png) |
 
 ### Notice
 This project is the capstone project of [Full Stack Cloud Development Courses](https://www.coursera.org/learn/ibm-cloud-native-full-stack-development-capstone) offered by IBM Skills Network on Coursera.
