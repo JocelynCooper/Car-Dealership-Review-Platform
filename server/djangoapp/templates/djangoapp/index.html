@@ -2,84 +2,97 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script
-        src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+  {% load static %}
+  <meta charset="UTF-8">
+  <title>Dealership Review</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+  <script
+    src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
 
-<body>
-    <!--Navigation Bar -->
-    {% include "djangoapp/navigation_bar.html" %}
+<style>
+  html * {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: #e17b34;
+  }
 
-    <!--Dealer Table-->
-    <!-- <table class="table" id="table" data-filter-control="true" style="margin:20px" width="80%">
+  body {
+    background-color: #fbfaf5;
+  }
+
+  .main_window {
+    min-height: 100vh;
+  }
+
+  .main_table {
+    text-align: center;
+  }
+
+  .custom_nav {
+    background-color: #fff1cf;
+  }
+
+  .nav_text {
+    color: #ea5506 !important;
+  }
+
+  .footer {
+    background-color: #fff1cf;
+    text-align: center;
+    width: 100%;
+
+  }
+</style>
+
+<body>
+  <!--Navigation Bar -->
+  {% include "djangoapp/navigation_bar.html" %}
+
+  <div class="container main_window" ng-view="">
+    <div class="table-responsive fixed-table-body">
+      <table class="table main_table" id="table" data-filter-control="true" style="margin-top:40px">
         <thead>
-            <tr>
-                <th data-field="id">ID</th>
-                <th data-field="dealer_name">Dealer Name</th>
-                <th data-field="city">City</th>
-                <th data-field="address">Address</th>
-                <th data-field="zip">Zip</th>
-                <th data-field="state" data-filter-control="select">State</th>
-            </tr>
+          <tr>
+            <th data-field="id" data-sortable="true" class="align-top">ID</th>
+            <th data-field="dealer_name" class="align-top">Dealer Name</th>
+            <th data-field="city" data-filter-control="select" data-sortable="true" class="align-top">City
+            </th>
+            <th data-field="address" data-sortable="true" class="align-top">Address</th>
+            <th data-field="zip" data-sortable="true" class="align-top">Zip</th>
+            <th data-field="state" data-filter-control="select" data-sortable="true">State</th>
+          </tr>
         </thead>
         <tbody>
-            {% for dealer in dealerships %}
-            <tr>
-                <td>{{dealer.id}}</td>
-                <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
-                <td>{{dealer.city}}</td>
-                <td>{{dealer.address}}</td>
-                <td>{{dealer.zip}}</td>
-                <td>{{dealer.st}}</td>
-            </tr>
-            {% endfor %}
+          {% for dealer in dealerships %}
+          <tr>
+            <td>{{dealer.id}}</td>
+            <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+            <td>{{dealer.city}}</td>
+            <td>{{dealer.address}}</td>
+            <td>{{dealer.zip}}</td>
+            <td>{{dealer.st}}</td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table> -->
 
-    <div class="container" ng-view="">
-        <div class="table-responsive fixed-table-body">
-            <table class="table" id="table" data-filter-control="true" style="margin-top:40px">
-                <thead>
-                    <tr>
-                        <th data-field="id">ID</th>
-                        <th data-field="dealer_name">Dealer Name</th>
-                        <th data-field="city">City</th>
-                        <th data-field="address">Address</th>
-                        <th data-field="zip">Zip</th>
-                        <th data-field="state" data-filter-control="select">State</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for dealer in dealerships %}
-                    <tr>
-                        <td>{{dealer.id}}</td>
-                        <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
-                        <td>{{dealer.city}}</td>
-                        <td>{{dealer.address}}</td>
-                        <td>{{dealer.zip}}</td>
-                        <td>{{dealer.st}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
-        </div>
+      </table>
     </div>
+  </div>
+
+  {% include "djangoapp/footer.html" %}
 </body>
 
 <script>
-    $(function () {
-        $('#table').bootstrapTable()
-    })
+  $(function () {
+    $('#table').bootstrapTable()
+  })
 </script>
 
 </html>

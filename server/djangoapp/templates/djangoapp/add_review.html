@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
         rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -13,39 +14,89 @@
 
 </head>
 
+<style>
+    html * {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        color: #e17b34;
+    }
+
+    body {
+        background-color: #fbfaf5;
+    }
+
+    .main_window {
+        min-height: 100vh;
+    }
+
+    .custom_nav {
+        background-color: #fff1cf;
+    }
+
+    .nav_text {
+        color: #ea5506 !important;
+    }
+
+    .user_button,
+    .user_button:hover {
+        background-color: #ec6d71;
+        color: white;
+    }
+
+    .review_form {
+        width: 550px;
+        margin: auto;
+    }
+
+    .footer {
+        background-color: #fff1cf;
+        text-align: center;
+        width: 100%;
+
+    }
+</style>
+
 <body>
     <!--Navigation Bar -->
     {% include "djangoapp/navigation_bar.html" %}
-    
-    <form id="reviewform" action="{% url 'djangoapp:add_review' dealer_id %}" method="post">
-        {% csrf_token %} 
-        <h1>Add a review about {{dealer_fullname}}</h1>
-        <h3>Enter the review content</h3>
-        <textarea class="form-control" id="content" name="content" rows="2" required></textarea>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">
-            <label class="form-check-label" for="purchasecheck">
-                Has purchased the car from {{dealer_fullname}} ? (selected purchased car information below if checked)
-            </label>
-        </div>
+    <div class="main_window">
+        <h2 class="text-center my-4">Add a review about {{dealer_fullname}}</h2>
+        <form class="review_form" id="reviewform" action="{% url 'djangoapp:add_review' dealer_id %}" method="post">
+            {% csrf_token %}
+            <hr>
+            <h4>Enter the review content</h4>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+            <div class="form-check my-3">
+                <input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">
+                <label class="form-check-label" for="purchasecheck">
+                    Has purchased the car from {{dealer_fullname}} ? <br> (selected purchased car information below if
+                    checked)
+                </label>
+            </div>
 
-        <div>
-            <p style="display:inline">Select your car (model-make-year): </p>
-            <select name="car" id="car" class="form-select" required>
-                <!-- <option selected value=-1>No Selection</option> -->
-                {% for car in cars %}
-                <option selected value={{car.id}}>{{car.name}}-{{car.carMakeName}}-{{car.year}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <input class="date-own form-control" type="text" name="purchasedate" id="purchasedate">
-        </div>
+            <hr>
+            <div class="mb-3">
+                <p style="display:inline">Select your car (model-make-year): </p>
+                <select name="car" id="car" class="form-select mt-2" required>
+                    <!-- <option selected value=-1>No Selection</option> -->
+                    <option selected data-hidden="true"> </option>
+                    {% for car in cars %}
+                    <option value={{car.id}}>{{car.name}}-{{car.carMakeName}}-{{car.year}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <p style="display:inline">Select purchase date (mm-dd-yyy): </p>
+                <input class="date-own form-control mt-2" type="text" name="purchasedate" id="purchasedate">
+            </div>
 
 
-        <button class="btn btn-success" type="submit" value="Submit">Submit</button>
+            <div class="row justify-content-center m-5">
+                <button class="btn user_button" type="submit">Submit</button>
+            </div>
 
-    </form>
+        </form>
+    </div>
+    {% include "djangoapp/footer.html" %}
 </body>
 
 <script type="text/javascript">

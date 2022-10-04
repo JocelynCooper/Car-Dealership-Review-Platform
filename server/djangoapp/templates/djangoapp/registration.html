@@ -2,9 +2,11 @@
 <html lang="en">
 
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Dealership Review</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -15,37 +17,83 @@
 
 </head>
 
+<style>
+    html * {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        color: #e17b34;
+    }
+
+    body {
+        background-color: #fbfaf5;
+    }
+
+    .main_window {
+        min-height: 100vh;
+    }
+
+    .custom_nav {
+        background-color: #fff1cf;
+    }
+
+    .nav_text {
+        color: #ea5506 !important;
+    }
+
+    .footer {
+        background-color: #fff1cf;
+        text-align: center;
+        width: 100%;
+    }
+
+    .user_form {
+        width: 400px;
+        margin: auto;
+    }
+
+    .user_header {
+        margin-top: 100px;
+    }
+
+    .user_button,
+    .user_button:hover {
+        background-color: #ec6d71;
+        color: white;
+    }
+</style>
+
 <body>
     <!--Navigation Bar -->
     {% include "djangoapp/navigation_bar.html" %}
 
     <!--Registration Page-->
-    <form action="{% url 'djangoapp:registration' %}" method="post">
-        <div class="container">
-            {% csrf_token %}
-            <h1 class="text-center">Sign Up</h1>
-            <hr>
-            <div class="form-group"> 
-                <label for="username"><b>User Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter User Name: " name="username" required> 
-                <label for="firstname"><b>First Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter First Name: " name="firstname" required> 
-                <label for="lastname"><b>Last Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required>
-                <label for="psw"><b>Password</b></label>
-                <input type="password" class="form-control" placeholder="Enter Password: " name="psw" required> 
-                {% if message %}
-                <div class="alert alert-warning"> 
-                    {{ message }}
-                </div>
-                {% endif %} 
-                <div class="row justify-content-center">
-                    <button class="btn btn-primary" type="submit">Sign up</button>
+    <div class="user_form main_window">
+        <form action="{% url 'djangoapp:registration' %}" method="post">
+            <div class="container">
+                {% csrf_token %}
+                <h2 class="text-center user_header">Sign Up</h2>
+                <hr>
+                <div class="form-group">
+                    <label for="username" class="mb-3"><b>User Name</b></label>
+                    <input type="text" class="form-control" placeholder="Enter User Name: " name="username" required>
+                    <label for="firstname" class="my-3"><b>First Name</b></label>
+                    <input type="text" class="form-control" placeholder="Enter First Name: " name="firstname" required>
+                    <label for="lastname" class="my-3"><b>Last Name</b></label>
+                    <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required>
+                    <label for="psw" class="my-3"><b>Password</b></label>
+                    <input type="password" class="form-control" placeholder="Enter Password: " name="psw" required>
+                    {% if message %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                    <div class="row justify-content-center m-5">
+                        <button class="btn user_button" type="submit">Sign up</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-
+        </form>
+    </div>
+    {% include "djangoapp/footer.html" %}
 </body>
 
 </html>

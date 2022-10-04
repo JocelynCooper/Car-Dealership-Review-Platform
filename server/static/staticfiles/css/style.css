@@ -1,0 +1,59 @@
+html * {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: #e17b34;
+}
+
+body {
+  background-color: #fbfaf5;
+}
+
+.main_window {
+  min-height: 100vh;
+}
+
+.main_table {
+  text-align: center;
+}
+
+.custom_nav {
+  background-color: #fff1cf;
+}
+
+.nav_text {
+  color: #ea5506 !important;
+}
+
+.card_style {
+  background-color: #fdeff2;
+  color: #ec6d71;
+  box-shadow: 0px 14px 80px rgba(34, 58, 51, 0.2);
+    padding: 30px 45px 35px 45px;
+    border-radius: 25px;
+    transition: all .3s;
+}
+
+.user_form {
+  width: 400px;
+  margin: auto;
+}
+
+.user_header {
+  margin-top: 100px;
+}
+
+.user_button, .user_button:hover {
+  background-color: #ec6d71;
+  color: white;
+}
+
+.review_form {
+  width:550px;
+  margin: auto;
+}
+
+.footer {
+  background-color: #fff1cf;
+  text-align: center;
+  width: 100%;
+
+}
